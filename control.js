@@ -7,6 +7,15 @@ const btn2 = document.getElementById("btn2")
 const btn3 = document.getElementById("btn3")
 const visor = document.getElementById("visor")
 
+
+var gameStarted = false
+var pontos = -1
+var sequencia = []
+var rodada = 0
+var vezJogador = false
+var contSequenciaIndice =0
+
+
 //função que inicia o carregamento
 window.onload(addEventListeners())
 
@@ -29,25 +38,141 @@ function addEventListeners(){
 //Funções eventos de botões
 function startGame(){
     alert("Jogo iniciando")
-    visor.innerHTML= 0
+    visor.innerHTML= pontos
+    gameStarted = true
+    proximaRodada()
 }
 
 function btn0TabuleiroClicado(){
-    console.log("Botão 0 clicado")
+    verificaBtnDigitado(0)
+    // console.log("Botão 0 clicado")
 }
 function btn1TabuleiroClicado(){
-    console.log("Botão 1 clicado")
+    verificaBtnDigitado(1)
+    // console.log("Botão 1 clicado")
 }
 function btn2TabuleiroClicado(){
-    console.log("Botão 2 clicado")
+    verificaBtnDigitado(2)
+    //console.log("Botão 2 clicado")
 }
 function btn3TabuleiroClicado(){
-    console.log("Botão 3 clicado")
+    verificaBtnDigitado(3)
+    //console.log("Botão 3 clicado")
 }
 function EndGame(){
-    alert("Jogo sendo encerrado!!")
+    gameStarted = false
+    pontos = -1
+    sequencia = []
+    rodada = 0
+    vezJogador = false
+    contSequenciaIndice =0
+    visor.innerHTML= pontos+1
+}
+
+function sorteia(){
+    resultado = Math.floor((Math.random()*3))
+    return resultado
+}
+
+function addSequencia(){
+    num = sorteia()
+    sequencia.push(num)
+    console.log(sequencia)
 }
 
 
+function verificaBtnDigitado(num){
+    console.log("ind: " + contSequenciaIndice)
+    if(vezJogador){
+        if(sequencia[contSequenciaIndice]!=num){
+            alert("GameOver")
+            contSequenciaIndice=0
+            EndGame()
+            vezJogador = false
+        }
+        else{
+            contSequenciaIndice++
+            
+            
+            if(contSequenciaIndice==(sequencia.length)){
+                vezJogador = false
+                contSequenciaIndice =0
+                proximaRodada()
+            }
+        }
+        
+    }
+    
+}
+
+function proximaRodada(){
+    pontos++
+    visor.innerHTML=pontos
+    vezJogador = false
+    
+    addSequencia()
+    exibirSequencia()
+    
+    vezJogador=true
 
 
+
+}
+
+function exibirSequencia(){
+    time =0
+    for(i=0;i<sequencia.length;i++){
+        
+        switch(sequencia[i]){
+            case 0:
+                time+=600
+                
+                setTimeout(()=>{
+                    btn0.style.backgroundColor = "#804d00"
+                    
+                },time)
+
+                setInterval(()=>{
+                    btn0.style.backgroundColor = "red"
+                },time+600)
+
+                break
+            case 1:
+                time+=600
+                
+                setTimeout(()=>{
+                    btn1.style.backgroundColor = "#000066"
+                },time)
+                setTimeout(()=>{
+                    btn1.style.backgroundColor = "blue"
+                },time+600)
+                break
+                
+            case 2:
+                time+=600
+                setTimeout(() => {
+                    btn2.style.backgroundColor = "#808000"
+                }, time);
+                
+                setTimeout(()=>{
+                    btn2.style.backgroundColor = "yellow"
+                },time+600)
+                break
+
+            case 3:
+                time+=600
+                
+                setTimeout(() => {
+                    btn3.style.backgroundColor = "#1f004d"
+                }, time);
+                setTimeout(()=>{
+                    btn3.style.backgroundColor = "purple"
+                },time+600)
+                break
+            
+        }
+    
+    
+
+}
+}
