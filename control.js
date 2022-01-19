@@ -1,10 +1,17 @@
+//Definição das constantes
 const btnStart = document.getElementById("btnStart")
 const btnEnd = document.getElementById("btnEnd")
 const btn0 = document.getElementById("btn0")
 const btn1 = document.getElementById("btn1")
 const btn2 = document.getElementById("btn2")
 const btn3 = document.getElementById("btn3")
+const visor = document.getElementById("visor")
 
+//função que inicia o carregamento
+window.onload(addEventListeners())
+
+
+//função que adiciona os escutadores
 function addEventListeners(){
 
     btnStart.addEventListener("click",startGame)
@@ -17,8 +24,12 @@ function addEventListeners(){
 }
 
 
+
+
+//Funções eventos de botões
 function startGame(){
     alert("Jogo iniciando")
+    visor.innerHTML= 0
 }
 
 function btn0TabuleiroClicado(){
@@ -33,10 +44,10 @@ function btn2TabuleiroClicado(){
 function btn3TabuleiroClicado(){
     console.log("Botão 3 clicado")
 }
-
 function EndGame(){
     alert("Jogo sendo encerrado!!")
 }
 
 
-window.onload(addEventListeners())
+
+
