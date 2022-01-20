@@ -60,6 +60,7 @@ function btn3TabuleiroClicado(){
     //console.log("Botão 3 clicado")
 }
 function EndGame(){
+    alert("Jogo encerrado")
     gameStarted = false
     pontos = -1
     sequencia = []
